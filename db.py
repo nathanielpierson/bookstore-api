@@ -82,35 +82,41 @@ def initial_setup():
         customers_seed_data,
     )
     conn.commit()
+
     print("Seed data created successfully")
 
 # adds orders column
 
-    # conn.execute(
+    conn.execute(
      
-    #     """
-    #     CREATE TABLE orders (
-    #     id INTEGER PRIMARY KEY NOT NULL,
-    #     customer_id INTEGER,
-    #     book_id INTEGER,
-    #     quantity INTEGER,
-    #     order_date TEXT,
-    #     status TEXT
-    #     );
-    #     """
-    # )
+        """
+        CREATE TABLE orders (
+        id INTEGER PRIMARY KEY NOT NULL,
+        customer_id INTEGER,
+        book_id INTEGER,
+        quantity INTEGER,
+        order_date TEXT,
+        status TEXT
+        );
+        """
+    )
+    orders_seed_data = [
+    (1, 1, 1, "3/4/2025", "ordered"),
+    (1, 2, 1, "3/4/2025", "ordered"),
+    (1, 4, 2, "3/4/2025", "ordered"),
+    (2, 2, 1, None, "in basket"),
+    (2, 5, 1, None, "in basket")
+    ]
 
-    # conn.executemany(
-    #     """
-    #     INSERT INTO orders (customer_id, book_id, quantity, order_date, status)
-    #     VALUES (?,?,?,?,?)
-    #     """,
-    #     customers_seed_data
-
-    # )
-    # conn.commit()
-    # print("Seed data created successfully")
-
+    conn.executemany(
+        """
+        INSERT INTO orders (customer_id, book_id, quantity, order_date, status)
+        VALUES (?,?,?,?,?)
+        """,
+        orders_seed_data
+    )
+    conn.commit()
+    print("Seed data created successfully")
 
     conn.close()
 
