@@ -124,11 +124,32 @@ def initial_setup():
 if __name__ == "__main__":
     initial_setup()
 
+#books index action
 def books_all():
     conn = connect_to_db()
     rows = conn.execute(
         """
         SELECT * FROM books
+        """
+    ).fetchall()
+    return [dict(row) for row in rows]
+
+#customers index action
+def customers_all():
+    conn = connect_to_db()
+    rows = conn.execute(
+        """
+        SELECT * FROM customers
+        """
+    ).fetchall()
+    return [dict(row) for row in rows]
+
+#orders index action
+def orders_all():
+    conn = connect_to_db()
+    rows = conn.execute(
+        """
+        SELECT * FROM orders
         """
     ).fetchall()
     return [dict(row) for row in rows]
