@@ -16,6 +16,17 @@ def initial_setup():
     )
     conn.execute(
         """
+        DROP TABLE IF EXISTS customers;
+        """
+    )
+    conn.execute(
+        """
+        DROP TABLE IF EXISTS orders;
+        """
+    )
+    # Add books column
+    conn.execute(
+        """
         CREATE TABLE books (
           id INTEGER PRIMARY KEY NOT NULL,
           title TEXT,
@@ -44,6 +55,62 @@ def initial_setup():
     )
     conn.commit()
     print("Seed data created successfully")
+
+    #Add customers column
+    conn.execute(
+        
+        """
+        CREATE TABLE customers (
+        id INTEGER PRIMARY KEY NOT NULL,
+        name TEXT,
+        email TEXT,
+        phone_number TEXT
+        );
+        """
+    )
+
+    customers_seed_data = [
+        ("Nathaniel", "nathaniel@email.com", "444-444-4443"),
+        ("Bobert", "bobert@email.com", "444-444-4442")
+    ]
+
+    conn.executemany(
+        """
+        INSERT INTO customers (name, email, phone_number)
+        VALUES (?,?,?)
+        """,
+        customers_seed_data,
+    )
+    conn.commit()
+    print("Seed data created successfully")
+
+# adds orders column
+
+    # conn.execute(
+     
+    #     """
+    #     CREATE TABLE orders (
+    #     id INTEGER PRIMARY KEY NOT NULL,
+    #     customer_id INTEGER,
+    #     book_id INTEGER,
+    #     quantity INTEGER,
+    #     order_date TEXT,
+    #     status TEXT
+    #     );
+    #     """
+    # )
+
+    # conn.executemany(
+    #     """
+    #     INSERT INTO orders (customer_id, book_id, quantity, order_date, status)
+    #     VALUES (?,?,?,?,?)
+    #     """,
+    #     customers_seed_data
+
+    # )
+    # conn.commit()
+    # print("Seed data created successfully")
+
 
     conn.close()
 
