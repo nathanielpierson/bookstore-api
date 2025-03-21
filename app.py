@@ -15,9 +15,8 @@ def books_index():
 
 #create for books
 @app.route("/books.json", methods=["POST"])
-def create():
+def books_create():
     title = request.form.get("title")
-    print(request.form)
     author = request.form.get("author")
     price = request.form.get("price")
     stock = request.form.get("stock")
@@ -27,6 +26,14 @@ def create():
 @app.route('/customers.json')
 def customers_index():
     return db.customers_all()
+
+#create for customers
+@app.route("/customers.json", methods=["POST"])
+def customers_create():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    phone_number = request.form.get("phone_number")
+    return db.customers_create(name, email, phone_number)
 
 #index for orders
 @app.route('/orders.json')

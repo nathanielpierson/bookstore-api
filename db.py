@@ -159,6 +159,20 @@ def customers_all():
     ).fetchall()
     return [dict(row) for row in rows]
 
+#customers create action
+def customers_create(name, email, phone_number):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        INSERT INTO customers (name, email, phone_number)
+        VALUES (?, ?, ?)
+        RETURNING *
+        """,
+        (name, email, phone_number),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
+
 #orders index action
 def orders_all():
     conn = connect_to_db()
