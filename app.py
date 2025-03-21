@@ -22,6 +22,11 @@ def books_create():
     stock = request.form.get("stock")
     return db.books_create(title, author, price, stock)
 
+#show for books
+@app.route("/books/<id>.json")
+def show(id):
+    return db.books_find_by_id(id)
+
 #index for customers
 @app.route('/customers.json')
 def customers_index():

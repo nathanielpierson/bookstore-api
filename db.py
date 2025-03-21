@@ -149,6 +149,18 @@ def books_create(title, author, price, stock):
     conn.commit()
     return dict(row)
 
+#books show action
+def books_find_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        SELECT * FROM books
+        WHERE id = ?
+        """,
+        (id,),
+    ).fetchone()
+    return dict(row)
+
 #customers index action
 def customers_all():
     conn = connect_to_db()
