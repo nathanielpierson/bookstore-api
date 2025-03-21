@@ -1,7 +1,20 @@
 from flask import Flask, request
+from flask_cors import CORS
 import db
 
 app = Flask(__name__)
+# CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+
+
+
+# app = Flask(__name__)
+# cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+
+
+
+
+
 
 
 @app.route('/')
