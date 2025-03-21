@@ -134,6 +134,21 @@ def books_all():
     ).fetchall()
     return [dict(row) for row in rows]
 
+#books create action
+def books_create(title, author, price, stock):
+    print(title)
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        INSERT INTO books (title, author, price, stock)
+        VALUES (?, ?, ?, ?)
+        RETURNING *
+        """,
+        (title, author, price, stock),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
+
 #customers index action
 def customers_all():
     conn = connect_to_db()

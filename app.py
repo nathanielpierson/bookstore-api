@@ -13,6 +13,16 @@ def hello():
 def books_index():
     return db.books_all()
 
+#create for books
+@app.route("/books.json", methods=["POST"])
+def create():
+    title = request.form.get("title")
+    print(request.form)
+    author = request.form.get("author")
+    price = request.form.get("price")
+    stock = request.form.get("stock")
+    return db.books_create(title, author, price, stock)
+
 #index for customers
 @app.route('/customers.json')
 def customers_index():
